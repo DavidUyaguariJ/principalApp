@@ -1,0 +1,139 @@
+﻿@page
+@model HumanTalentApp.Pages.Users.CreateModel
+@{
+    ViewData["Title"] = "Crear Usuario";
+    Layout = "_FormsLayout";
+}
+<form class="row gy-2 gx-3 align-items-center" id="userCreateForm">
+    <div class="text-danger"></div>
+    <div class="card mb-4">
+        <div class="row justify-content-center">
+            <div class="card-body">
+                <label>Detalles</label>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserDni" name="UserDni" class="form-control" placeholder="dni" />
+                    <label>Dni</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserFirsrtName" name="UserFirsrtName" class="form-control" placeholder="firstname" />
+                    <label>Nombre</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserFirstLastname" name="UserFirstLastname" class="form-control" placeholder="lastname" />
+                    <label>Apellido</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserEmail" name="UserEmail" class="form-control" type="email" placeholder="email" />
+                    <label>Correo electrónico</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserPassword" name="UserPassword" class="form-control" type="password" placeholder="UserPassword" />
+                    <label>Contraseña</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserConfirmPassword" name="UserConfirmPassword" class="form-control" type="password" placeholder="UserConfirmPassword" />
+                    <label>Confirmar Contraseña</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <select id="UserRol" name="UserRol" class="form-select" placeholder="rol" aria-label="rol">
+                        <option value="0B532749-E46D-4445-90E8-E8064BCDCE7E">Administrador</option>
+                        <option value="E7493086-5757-427A-97D7-1D411F25B426">Auditor</option>
+                    </select>
+                    <label for="floatingSelectGrid">Rol</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
+        <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
+    </div>
+</form>
+
+<script>
+    window.onload=function () {
+        let save = document.getElementById('save');
+        save.addEventListener('click', saveData);
+    };
+    function saveData(e) {
+         if (document.getElementById('UserPassword').value === document.getElementById('UserConfirmPassword').value) {
+            fetch("@Url.Action("Register", "User")", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    Dni: document.getElementById('UserDni').value,
+                    UserName: document.getElementById('UserEmail').value,
+                    FirstName: document.getElementById('UserFirsrtName').value,
+                    Lastname: document.getElementById('UserFirstLastname').value,
+                    Email: document.getElementById('UserEmail').value,
+                    Password: document.getElementById('UserPassword').value,
+                    IdeRole: document.getElementById('UserRol').value
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.message) {
+                        Swal.fire({
+                            title: 'Mensaje',
+                            text: data.message,
+                            icon: 'success',
+                            iconColor: '#198754',
+                            confirmButtonColor: '#198754',
+                            confirmButtonText: 'Aceptar',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                history.back();
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al crear registro',
+                        icon: 'error',
+                        iconColor: '#dc3545',
+                        confirmButtonColor: '#dc3545',
+                        confirmButtonText: 'Aceptar',
+                    });
+                });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: 'Las contraseñas no coinciden',
+                icon: 'error',
+                iconColor: '#dc3545',
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: 'Aceptar',
+            });
+        }
+
+    }
+</script>

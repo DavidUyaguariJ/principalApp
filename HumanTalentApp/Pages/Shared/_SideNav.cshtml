@@ -1,0 +1,32 @@
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+        <div class="nav">
+            <div class="sb-sidenav-menu-heading">Inicio</div>
+            <a class="nav-link" asp-page="/Index">
+                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>Inicio
+            </a>
+            @if (User.IsInRole("ADMN"))
+            {
+                <div class="sb-sidenav-menu-heading">Usuarios</div>
+                <a class="nav-link" asp-page="/Users/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-group"></i></div>
+                    Usuarios
+                </a>
+                <div class="sb-sidenav-menu-heading">Auditor&iacute;as</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDevices" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-toolbox"></i></div>
+                    Herram. M&oacute;dulo
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseDevices" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" asp-page="/Audits/Tools/EmpresarialObjetives/Index">Objetivos Empresariales</a>
+                        <a class="nav-link" asp-page="/Audits/Tools/AlignmentObjetives/Index">Objetivos Alineamiento</a>
+                        <a class="nav-link" asp-page="/Audits/Tools/GovermentObjetives/Index">Objetivos Gobierno</a>
+                    </nav>
+                </div>
+             }
+
+        </div>
+    </div>
+</nav>

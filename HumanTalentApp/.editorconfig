@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS8604: Posible argumento de referencia nulo
+dotnet_diagnostic.CS8604.severity = none
+
+# CS8602: Desreferencia de una referencia posiblemente NULL.
+dotnet_diagnostic.CS8602.severity = none

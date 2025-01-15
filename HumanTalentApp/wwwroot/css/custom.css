@@ -1,0 +1,20 @@
+﻿.brand-logo {
+    width: 200px;
+    padding: 20px;
+    align-content: center;
+}
+
+.brand-symbol {
+    width: 2.5rem;
+    padding-left: 10px;
+    margin-left: 0.5rem
+}
+
+.link-navigation {
+    color: #e74c3c;
+    text-decoration: none;
+}
+
+    .link-navigation:hover {
+        color: #ff6d42;
+    }

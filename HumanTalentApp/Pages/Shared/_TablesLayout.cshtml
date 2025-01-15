@@ -1,0 +1,16 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+<div class="container-fluid">
+    <h1 class="mt-4">@ViewData["Title"]</h1>
+    <div class="card mb-4">
+        <div class="card-body"><a class="btn btn-primary" href="@Url.Page("Create")"><i class="fas fa-plus"></i>&thinsp;Nuevo</a></div>
+    </div>
+    <div class="card mb-5">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>&thinsp;Listado de @ViewData["Title"]</div>
+        <div class="card-body">
+            @RenderBody()
+        </div>
+    </div>
+</div>

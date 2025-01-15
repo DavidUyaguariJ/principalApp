@@ -1,0 +1,129 @@
+﻿@page "/Users/Edit/{Id:Guid}"
+@model HumanTalentApp.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "Editar Usuario";
+    Layout = "_FormsLayout";
+}
+<form class="row gy-2 gx-3 align-items-center" id="userForm">
+    @Html.HiddenFor(model => model.User.IdeUser)
+    <div class="text-danger"></div>
+    <div class="card mb-4">
+        <div class="row justify-content-center">
+            <div class="card-body">
+                <label>Detalles</label>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserDni" name="UserDni" class="form-control" placeholder="dni" value="@Model.User.Dni" />
+                    <label>Dni</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserFirsrtName" name="UserFirsrtName" class="form-control" placeholder="firstname" value="@Model.User.FirstName" />
+                    <label>Nombre</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserFirstLastname" name="UserFirstLastname" class="form-control" placeholder="lastname" value="@Model.User.LastName" />
+                    <label>Apellido</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserName" name="UserName" class="form-control" placeholder="userName" value="@Model.User.UserName" />
+                    <label>User Name</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserEmail" name="UserEmail" class="form-control" type="email" placeholder="email" value="@Model.User.Email" />
+                    <label>Correo electrónico</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="UserPassword" name="UserPassword" class="form-control" type="password" placeholder="UserPassword" />
+                    <label>Contraseña</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <select id="UserRol" name="UserRol" class="form-select" placeholder="rol" aria-label="rol">
+                        @foreach (var role in Model.User.Roles)
+                        {
+                            <option value="@role.IdeRole">@role.Name</option>
+                        }
+                    </select>
+                    <label for="floatingSelectGrid">Rol</label>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
+        <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
+    </div>
+</form>
+
+<script>
+    window.onload=function () {
+        let save = document.getElementById('save');
+        save.addEventListener('click', saveData);
+    };
+    function saveData(e) {
+        e.preventDefault();
+        fetch("@Url.Action("UpdateUsers", "User")", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IdeUser: document.getElementById('User_IdeUser').value,
+                IdeRole: document.getElementById('UserRol').value,
+                Dni: document.getElementById('UserDni').value,
+                UserName: document.getElementById('UserName').value,
+                FirstName: document.getElementById('UserFirsrtName').value,
+                LastName: document.getElementById('UserFirstLastname').value,
+                Email: document.getElementById('UserEmail').value,
+                Password: document.getElementById('UserPassword').value
+            }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                Swal.fire({
+                    title: 'Mensaje',
+                    text: data.message,
+                    icon: 'success',
+                    iconColor: '#198754',
+                    confirmButtonColor: '#198754',
+                    confirmButtonText: 'Aceptar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        history.back();
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Error al actualizar registro',
+                    icon: 'error',
+                    iconColor: '#dc3545',
+                    confirmButtonColor: '#dc3545',
+                    confirmButtonText: 'Aceptar',
+                });
+            });
+    }
+</script>

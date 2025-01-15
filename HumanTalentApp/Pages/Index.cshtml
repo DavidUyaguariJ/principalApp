@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+    var userName = User.Identity.Name;
+    var user = User;
+}
+<div class="text-center">
+    <h1 class="display-4">Bienvenido @userName</h1>
+</div>
+<div class="card-body ">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-3">
+            <img src="/public/pictures/brand.jpg" class="img-fluid" alt="Brand Logo">
+        </div>
+    </div>
+</div>
