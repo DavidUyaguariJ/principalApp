@@ -1,0 +1,29 @@
+name: Builder and Deploy Human Talent App
+
+trigger:
+- master
+
+variables:
+- group: deployApp
+
+- name: vmImageName
+  value: "ubuntu-latest"
+  
+stages: 
+- stage: build
+  displayName: build push
+  jobs:
+  - job: Build
+    displayName: build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Building Image
+      inputs:
+        buildContext: '$(Build.Repository.LocalPath)'
+        command: buildAndPush
+        repository: $(imageName)
+        dockerfile: HumanTalentApp/Dockerfile
+        containerRegistry: $(containerRegistry)
+        tags: $(imageName)-$(Build.BuildId)

@@ -1,0 +1,121 @@
+﻿@page
+@model HumanTalentApp.Pages.Audits.Tools.GovermentObjetives.IndexModel
+@{
+    ViewData["Title"] = "Objetivos de Gobierno";
+    Layout = "_TablesLayout";
+}
+<script>
+    var actionRealiced = localStorage.getItem('actionRealiced');
+
+    if (actionRealiced === 'true') {
+        localStorage.removeItem('actionRealiced');
+        location.reload();
+    }
+</script>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Principal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tfoot>
+        </tfoot>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    window.onload = function () {
+    fetch("@Url.Action("GetAllBrand", "GouvernmentObjetives")")
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+            if (data.length === 0) {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                `;
+            } else {
+                data.forEach(gouvermentObjetive => {
+                    const row = tbody.insertRow();
+                    row.dataset.IdeGuvermentObjetive = gouvermentObjetive.IdeGuvermentObjetive;
+                    var isPrincipalText = "";
+                    if (gouvermentObjetive.isPrincipal == true) {
+                        isPrincipalText = "Si"
+                    } else {
+                        isPrincipalText = "No"
+                    }
+                    row.innerHTML = `
+                        <td>${gouvermentObjetive.name}</td>
+                        <td>${isPrincipalText}</td>
+                        <td>
+                            <a id="edit" name="edit" class="btn btn-primary" href="/Audits/Tools/GovermentObjetives/Edit/${gouvermentObjetive.ideGuvermentObjetive}"><i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span></a>
+                            <a name="delete" class="btn btn-danger" data-brand-Id="${gouvermentObjetive.ideGuvermentObjetive}" onclick="removeItem(this)"><i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span></a>
+                        </td>
+                    `;
+                });
+            }
+        });
+}
+</script>
+
+<script>
+    function removeItem(e) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: "¿Desea eliminar el registro selecionado?",
+            icon: 'question',
+            iconColor: '#ffc107',
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#198754',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let brandId = e.dataset.brandId;
+                let url = "@Url.Action("DeleteObjetive", "GouvernmentObjetives")" + `/${brandId}`;
+                fetch(url, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.message) {
+                            let row = e.closest('tr');
+                            row.remove();
+                            Swal.fire({
+                                title: 'Mensaje',
+                                text: data.message,
+                                icon: 'success',
+                                iconColor: '#198754',
+                                confirmButtonColor: '#198754',
+                                confirmButtonText: 'Aceptar',
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al eliminar registro',
+                            icon: 'error',
+                            iconColor: '#dc3545',
+                            confirmButtonColor: '#dc3545',
+                            confirmButtonText: 'Aceptar',
+                        });
+                    });
+            }
+        });
+    }
+</script>

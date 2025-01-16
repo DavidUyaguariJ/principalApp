@@ -1,0 +1,120 @@
+﻿@page
+@model EntityModelsHumanTalentApp.Models.App.AdmnUser
+@{
+    ViewData["Title"] = "Usuarios";
+    Layout = "_TablesLayout";
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Dni</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Usuario</th>
+                <th>Correo Electr&oacute;nico</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    window.onload = function () {
+        fetch("@Url.Action("GetAllUsers", "User")")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+                if (data.length === 0) {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    `;
+                } else {
+                    data.forEach(user => {
+                        const row = tbody.insertRow();
+                        row.dataset.ideUser = user.ideUser;
+                        row.innerHTML = `
+                            <td>${user.dni}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.userName}</td>
+                            <td>${user.email}</td>
+                            <td>${user.role}</td>
+                            <td>
+                                <a id="edit" name="edit" class="btn btn-primary" href="/Users/Edit/${user.ideUser}"><i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span></a>
+                                <a name="delete" class="btn btn-danger" data-user-Id="${user.ideUser}" onclick="removeItem(this)"><i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span></a>
+                            </td>
+                        `;
+                    });
+                }
+            });
+    }
+</script>
+<script>
+    function removeItem(e) {
+        Swal.fire({
+            title: 'Mensaje',
+            text: "¿Desea eliminar el registro selecionado?",
+            icon: 'question',
+            iconColor: '#ffc107',
+            showCancelButton: true,
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#198754',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let idUser = e.dataset.userId;
+                let url = "@Url.Action("DeleteUser", "User")" + `/${idUser}`;
+                fetch(url, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.message) {
+                            let row = e.closest('tr');
+                            row.remove();
+                            Swal.fire({
+                                title: 'Mensaje',
+                                text: data.message,
+                                icon: 'success',
+                                iconColor: '#198754',
+                                confirmButtonColor: '#198754',
+                                confirmButtonText: 'Aceptar',
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al eliminar registro',
+                            icon: 'error',
+                            iconColor: '#dc3545',
+                            confirmButtonColor: '#dc3545',
+                            confirmButtonText: 'Aceptar',
+                        });
+                    });
+            }
+            else {
+                let idUser = e.dataset.userId;
+                console.log(`/${idUser}`);
+            }
+        });
+    }
+</script>
