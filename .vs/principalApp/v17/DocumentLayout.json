@@ -1,7 +1,52 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\nicol\\source\\repos\\principalApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{08A8A05D-5C3B-4D57-83AF-AED25E981625}|EntityHumanTalentApp\\EntityModelsPrincipalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\entityhumantalentapp\\models\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A8A05D-5C3B-4D57-83AF-AED25E981625}|EntityHumanTalentApp\\EntityModelsPrincipalApp.csproj|solutionrelative:entityhumantalentapp\\models\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\controllers\\empresarialobjetivescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\controllers\\empresarialobjetivescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\shared\\_sidenav.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\shared\\_sidenav.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\controllers\\alignmentobjetivescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\controllers\\alignmentobjetivescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,6 +99,148 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\EntityHumanTalentApp\\Models\\Context\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "EntityHumanTalentApp\\Models\\Context\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\EntityHumanTalentApp\\Models\\Context\\AppDbContext.cs",
+              "RelativeToolTip": "EntityHumanTalentApp\\Models\\Context\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-25T22:20:29.923Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmpresarialObjetivesController.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Controllers\\EmpresarialObjetivesController.cs",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Controllers\\EmpresarialObjetivesController.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Controllers\\EmpresarialObjetivesController.cs",
+              "RelativeToolTip": "HumanTalentApp\\Controllers\\EmpresarialObjetivesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T00:18:11.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_SideNav.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Shared\\_SideNav.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Shared\\_SideNav.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Shared\\_SideNav.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Shared\\_SideNav.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAB4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-22T00:17:18.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Privacy.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-22T00:16:59.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Index.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-22T00:16:57.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-22T00:16:35.103Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Create.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Create.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Create.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-22T00:15:58.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AlignmentObjetivesController.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Controllers\\AlignmentObjetivesController.cs",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Controllers\\AlignmentObjetivesController.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Controllers\\AlignmentObjetivesController.cs",
+              "RelativeToolTip": "HumanTalentApp\\Controllers\\AlignmentObjetivesController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAxwCEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T00:14:33.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AppDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Data\\AppDBContext.cs",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Data\\AppDBContext.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Data\\AppDBContext.cs",
+              "RelativeToolTip": "HumanTalentApp\\Data\\AppDBContext.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAIwDkAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T00:12:19.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\appsettings.json",
+              "RelativeDocumentMoniker": "HumanTalentApp\\appsettings.json",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\appsettings.json",
+              "RelativeToolTip": "HumanTalentApp\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-22T00:08:32.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Program.cs",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Program.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Program.cs",
+              "RelativeToolTip": "HumanTalentApp\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T00:00:18.452Z"
             }
           ]
         }
