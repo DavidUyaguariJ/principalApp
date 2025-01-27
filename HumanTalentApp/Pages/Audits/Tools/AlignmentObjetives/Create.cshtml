@@ -53,7 +53,6 @@
         checkbox1.addEventListener('change', function () {
             hiddenInputCode.value = this.checked;
         });
-
         fetch("@Url.Action("RegObjetive", "AlignmentObjetives")", {
             method: 'POST',
             headers: {

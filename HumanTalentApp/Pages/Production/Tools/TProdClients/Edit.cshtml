@@ -1,11 +1,11 @@
-﻿@page "/Production/Tools/TProdClient/Edit/{Id:Guid}"
-@model principalApp.Pages.Production.Tools.TProdClient.EditModel
+﻿@page "/Production/Tools/TProdClients/Edit/{Id:Guid}"
+@model principalApp.Pages.Production.Tools.TProdClients.EditModel
 @{
     ViewData["Title"] = "Editar Cliente de Producción";
     Layout = "_FormsLayout";
 }
 <form class="row gy-2 gx-3 align-items-center" id="clientEditForm" method="post">
-    @Html.HiddenFor(model => model.Client.IdeClient)
+    @Html.HiddenFor(model => model.Client.IdeClient, new { id = "Brand_IdeClient" })
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-8 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del cliente" value="@Model.Client.Nombre" />
+                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del cliente" value="@Model.Client.Name" />
                     <label>Nombre</label>
                 </div>
             </div>
@@ -24,11 +24,9 @@
                     <label>ID de Chat</label>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-check mb-3">
-                    <input id="Status" name="Status" class="form-check-input" type="checkbox" @(Model.Client.Status ? "checked" : "") />
-                    <label class="form-check-label">Activo</label>
-                </div>
+            <div class="form-check mb-3">
+                <input id="Status" name="Status" class="form-check-input" type="checkbox" value="@Model.Client.Status" />
+                <label class="form-check-label">Status</label>
             </div>
         </div>
     </div>
@@ -43,19 +41,18 @@
         let save = document.getElementById('save');
         save.addEventListener('click', saveData);
     };
-
     function saveData(e) {
-        e.preventDefault();
-
-        fetch("@Url.Action("UpdateClient", "TProdClient", new { id = Model.Client.IdeClient })", {
+        const checkbox2 = document.getElementById('Status');
+        fetch("@Url.Action("UpdateClient", "TProdClient")", {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                Nombre: document.getElementById('Name').value,
+                IdeClient: document.getElementById('Brand_IdeClient').value,
+                Name: document.getElementById('Name').value,
                 ChatId: document.getElementById('ChatId').value,
-                Status: document.getElementById('Status').checked
+                Status: checkbox2.checked
             }),
         })
             .then(response => {

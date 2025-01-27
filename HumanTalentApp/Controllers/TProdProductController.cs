@@ -2,63 +2,38 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using EntityModelsPrincipalApp.Models.App;
-using EntityModelsPrincipalApp.Models.Context;
+using HumanTalentApp.Data;
 using System;
 using System.Linq;
 
 namespace principalApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "ADMN")]
     public class TProdProductController : ControllerBase
     {
+        public IConfiguration _configuration;
         private readonly AppDbContext _context;
 
-        public TProdProductController(AppDbContext context)
+        public TProdProductController(AppDbContext context, IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = context;
         }
 
-        // GET: api/TProdProduct
+        [HttpGet]
+        public IActionResult GetProductById(Guid id)
+        {
+            var result = _context.TProdProducts.Where(x => x.IdeProduct == id);
+            return Ok(result);
+        }
+
         [HttpGet]
         public IActionResult GetAllProducts()
         {
-            try
-            {
-                var products = _context.TProdProducts.ToList();
-                return Ok(new
-                {
-                    Message = "Productos obtenidos con éxito.",
-                    Data = products
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetProductById(Guid id)
-        {
-            try
-            {
-                var product = _context.TProdProducts.FirstOrDefault(p => p.IdeProduct == id);
-                if (product == null)
-                {
-                    return NotFound(new { Message = $"Producto con ID {id} no encontrado." });
-                }
-
-                return Ok(new
-                {
-                    Message = "Producto encontrado con éxito.",
-                    Data = product
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
+            var result = _context.TProdProducts.ToList();
+            return Ok(result);
         }
 
         [HttpPost]
@@ -66,84 +41,90 @@ namespace principalApp.Controllers
         {
             try
             {
-                if (product == null || string.IsNullOrEmpty(product.Nombre))
-                {
-                    return BadRequest(new { Message = "El producto no es válido o el nombre está vacío." });
-                }
-
-                product.IdeProduct = Guid.NewGuid(); // Generar un nuevo ID para el producto.
+                var data = product ?? throw new Exception("The value is null");
                 _context.TProdProducts.Add(product);
                 _context.SaveChanges();
-
-                return CreatedAtAction(nameof(GetProductById), new { id = product.IdeProduct }, new
+                return StatusCode(200, new
                 {
-                    Message = "Producto creado con éxito.",
+                    Message = "Registro creado",
                     Data = product
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateProduct(Guid id, [FromBody] TProdProduct product)
-        {
-            try
-            {
-                if (product == null || string.IsNullOrEmpty(product.Nombre))
+                return StatusCode(400, new
                 {
-                    return BadRequest(new { Message = "El producto no es válido o el nombre está vacío." });
-                }
-
-                var existingProduct = _context.TProdProducts.FirstOrDefault(p => p.IdeProduct == id);
-                if (existingProduct == null)
-                {
-                    return NotFound(new { Message = $"Producto con ID {id} no encontrado." });
-                }
-                existingProduct.Nombre = product.Nombre;
-                existingProduct.Status = product.Status;
-                _context.TProdProducts.Update(existingProduct);
-                _context.SaveChanges();
-
-                return Ok(new
-                {
-                    Message = "Producto actualizado con éxito.",
-                    Data = existingProduct
+                    error = e.Message
                 });
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(Guid id)
+        [HttpPut]
+        public IActionResult UpdateProduct([FromBody] TProdProduct product)
         {
             try
             {
-                var product = _context.TProdProducts.FirstOrDefault(p => p.IdeProduct == id);
-                if (product == null)
+                var data = product ?? throw new Exception("The value is null");
+
+                var branddevice = _context.TProdProducts.Where(x => x.IdeProduct == product.IdeProduct).FirstOrDefault();
+                if (branddevice == null)
                 {
-                    return NotFound(new { Message = $"Producto con ID {id} no encontrado." });
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
                 }
-
-                _context.TProdProducts.Remove(product);
+                branddevice.Name = product.Name;
+                branddevice.Status = product.Status;
+                _context.TProdProducts.Update(branddevice);
                 _context.SaveChanges();
-
-                return Ok(new
+                return StatusCode(200, new
                 {
-                    Message = "Producto eliminado con éxito.",
+                    Message = "Registro actualizado",
                     Data = product
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
+            }
+        }
+
+        [HttpDelete("{BrandId?}")]
+        public IActionResult DeleteProduct(Guid BrandId)
+        {
+            try
+            {
+                var branddevice = _context.TProdProducts.Where(x => x.IdeProduct == BrandId).FirstOrDefault();
+                if (branddevice == null)
+                {
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
+                }
+                _context.TProdProducts.Remove(branddevice);
+                _context.SaveChanges();
+                return StatusCode(200, new
+                {
+                    Message = "Registro eliminado",
+                    Data = branddevice
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
             }
         }
     }
 }
-
