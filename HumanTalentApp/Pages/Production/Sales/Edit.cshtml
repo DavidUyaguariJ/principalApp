@@ -1,0 +1,115 @@
+﻿@page "/Production/Sales/Edit/{Id:long}"
+@model HumanTalentApp.Pages.Production.Sales.EditModel
+@{
+    ViewData["Title"] = "Editar Venta";
+    Layout = "_FormsLayout";
+}
+
+<form class="row gy-2 gx-3 align-items-center" id="orderRepair" method="post">
+    @Html.HiddenFor(model => model.Sale.IdeSale)
+    <div class="text-danger"></div>
+    <div class="card mb-4">
+        <div class="row justify-content-center">
+            <div class="card-body">
+                <label>Detalles</label>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <input id="Quantity" name="Quantity" class="form-control" placeholder="Quantity" value="@Model.Sale.Quantity" />
+                    <label>Quantity</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <select id="SelectedProductId" name="SelectedProductId" class="form-select" aria-label="Select Product">
+                        <option value="">Seleccione un Producto</option>
+                        @foreach (var product in Model.ProductList)
+                        {
+                            <option value="@product.Value" selected="@(product.Value == Model.Sale.IdeProduct.ToString() ? "selected" : "")">
+                                @product.Text
+                            </option>
+                        }
+                    </select>
+                    <label>Producto</label>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <div class="form-floating mb-3">
+                    <select id="SelectedClientId" name="SelectedClientId" class="form-select" aria-label="Select Supplier">
+                        <option value="">Seleccione un Proveedor</option>
+                        @foreach (var client in Model.ClientList)
+                        {
+                            <option value="@client.Value" selected="@(client.Value == Model.Sale.IdeSale.ToString() ? "selected" : "")">
+                                @client.Text
+                            </option>
+                        }
+                    </select>
+                    <label>Proveedor</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
+        <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
+    </div>
+</form>
+
+<script>
+    window.onload=function () {
+        let save = document.getElementById('save');
+        save.addEventListener('click', saveData);
+    };
+
+    function saveData(e) {
+        const productId = document.getElementById('SelectedProductId').value;
+        const clientId = document.getElementById('SelectedClientId').value;
+        const quantity = document.getElementById('Quantity').value;
+
+        fetch("@Url.Action("UpdateSale", "ProdSales")", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IdeSale: document.getElementById('Sale_IdeSale').value,
+                IdeProduct: productId,
+                IdeClient: clientId,
+                Quantity: quantity
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data) {
+                Swal.fire({
+                    title: 'Mensaje',
+                    text: "Actualizado con Éxito",
+                    icon: 'success',
+                    iconColor: '#198754',
+                    confirmButtonColor: '#198754',
+                    confirmButtonText: 'Aceptar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        history.back();
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al actualizar registro',
+                icon: 'error',
+                iconColor: '#dc3545',
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: 'Aceptar',
+            });
+        });
+    }
+</script>

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using HumanTalentApp.Data;
 using System;
 using System.Linq;
-using EntityModelsPrincipalApp.Models.Import;
 using System.Configuration;
 
 namespace principalApp.Controllers
@@ -44,6 +43,7 @@ namespace principalApp.Controllers
             try
             {
                 var data = supplier ?? throw new Exception("The value is null");
+                supplier.ChatId = "2055289971";
                 _context.TProdSuppliers.Add(supplier);
                 _context.SaveChanges();
                 return StatusCode(200, new
@@ -67,7 +67,7 @@ namespace principalApp.Controllers
             try
             {
                 var data = supplier ?? throw new Exception("The value is null");
-
+                supplier.ChatId = "2055289971";
                 var branddevice = _context.TProdSuppliers.Where(x => x.IdeSupplier == supplier.IdeSupplier).FirstOrDefault();
                 if (branddevice == null)
                 {
