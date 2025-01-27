@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityModelsPrincipalApp.Models.Import;
+namespace EntityModelsPrincipalApp.Models.App;
 
 [Table("T_PROD_SUPPLIERS")]
 public partial class TProdSupplier

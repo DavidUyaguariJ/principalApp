@@ -1,7 +1,7 @@
 ﻿@page
-@model HumanTalentApp.Pages.Audits.Tools.AlignmentObjetives.IndexModel
+@model HumanTalentApp.Pages.Production.Sales.IndexModel
 @{
-    ViewData["Title"] = "Objetivos de Alineamiento";
+    ViewData["Title"] = "Ventas";
     Layout = "_TablesLayout";
 }
 <script>
@@ -16,8 +16,9 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Principal</th>
+                <th>Producto</th>
+                <th>Cliente</th>
+                <th>Cantidad</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -30,46 +31,42 @@
 
 <script>
     window.onload = function () {
-        fetch("@Url.Action("GetAllBrand", "AlignmentObjetives")")
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-            if (data.length === 0) {
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                `;
-            } else {
-                data.forEach(alignmentObjetive => {
+        fetch("@Url.Action("GetAllSalesWithNames", "ProdSales")")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+                if (data.length === 0) {
                     const row = tbody.insertRow();
-                    row.dataset.IdeAlignmentObjetive = alignmentObjetive.IdeAlignmentObjetive;
-                    var isPrincipalText = "";
-                    if (alignmentObjetive.isPrincipal == true) {
-                        isPrincipalText = "Si"
-                    } else {
-                        isPrincipalText = "No"
-                    }
                     row.innerHTML = `
-                        <td>${alignmentObjetive.name}</td>
-                        <td>${isPrincipalText}</td>
-                        <td>
-                            <a id="edit" name="edit" class="btn btn-primary" href="/Audits/Tools/AlignmentObjetives/Edit/${alignmentObjetive.ideAlignmentObjetive}"><i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span></a>
-                            <a name="delete" class="btn btn-danger" data-brand-Id="${alignmentObjetive.ideAlignmentObjetive}" onclick="removeItem(this)"><i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span></a>
-                        </td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                     `;
-                });
-            }
-        });
-}
+                } else {
+                    data.forEach(sale => {
+                        const row = tbody.insertRow();
+                        row.dataset.IdeSale = sale.ideSale;
+                        row.innerHTML = `
+                            <td>${sale.productName}</td>
+                            <td>${sale.clientName}</td>
+                            <td>${sale.quantity}</td>
+                            <td>
+                                <a id="edit" name="edit" class="btn btn-primary" href="/Production/Sales/Edit/${sale.ideSale}"><i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span></a>
+                                <a name="delete" class="btn btn-danger" data-brand-Id="${sale.ideSale}" onclick="removeItem(this)"><i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span></a>
+                            </td>
+                        `;
+                    });
+                }
+            });
+    }
 </script>
 
 <script>
     function removeItem(e) {
         Swal.fire({
             title: 'Mensaje',
-            text: "¿Desea eliminar el registro selecionado?",
+            text: "¿Desea eliminar el registro seleccionado?",
             icon: 'question',
             iconColor: '#ffc107',
             showCancelButton: true,
@@ -79,11 +76,13 @@
             cancelButtonColor: '#198754',
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log(e.dataset);
-                let brandId = e.dataset.brandId;
-                let url = "@Url.Action("DeleteObjetive", "AlignmentObjetives")" + `/${brandId}`;
+                let saleId = e.dataset.brandId;
+                let url = '/api' + "@Url.Action("DeleteSale", "ProdSales")" + `/${saleId}`;
                 fetch(url, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 })
                     .then(response => {
                         if (!response.ok) {
@@ -92,12 +91,12 @@
                         return response.json();
                     })
                     .then(data => {
-                        if (data && data.message) {
+                        if (data) {
                             let row = e.closest('tr');
                             row.remove();
                             Swal.fire({
                                 title: 'Mensaje',
-                                text: data.message,
+                                text: "Registro eliminado con éxito",
                                 icon: 'success',
                                 iconColor: '#198754',
                                 confirmButtonColor: '#198754',
@@ -109,7 +108,7 @@
                         console.error('Error:', error);
                         Swal.fire({
                             title: 'Error',
-                            text: 'Error al eliminar registro',
+                            text: 'Error al eliminar el registro',
                             icon: 'error',
                             iconColor: '#dc3545',
                             confirmButtonColor: '#dc3545',

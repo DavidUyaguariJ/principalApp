@@ -12,7 +12,18 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-user-group"></i></div>
                     Usuarios
                 </a>
-                <div class="sb-sidenav-menu-heading">Auditor&iacute;as</div>
+             }
+            @if (User.IsInRole("PROD") || User.IsInRole("ADMN"))
+            {
+            <div class="sb-sidenav-menu-heading">Productores</div>
+                <a class="nav-link" asp-page="/Production/Purchases/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-group"></i></div>
+                    Compras
+                </a>
+                <a class="nav-link" asp-page="/Production/Sales/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-group"></i></div>
+                    Ventas
+                </a>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDevices" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-toolbox"></i></div>
                     Herram. M&oacute;dulo
@@ -20,15 +31,12 @@
                 </a>
                 <div class="collapse" id="collapseDevices" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" asp-page="/Audits/Tools/EmpresarialObjetives/Index">Objetivos Empresariales</a>
-                        <a class="nav-link" asp-page="/Audits/Tools/AlignmentObjetives/Index">Objetivos Alineamiento</a>
-                        <a class="nav-link" asp-page="/Audits/Tools/GovermentObjetives/Index">Objetivos Gobierno</a>
                         <a class="nav-link" asp-page="/Production/Tools/TProdClients/Index">Clientes</a>
                         <a class="nav-link" asp-page="/Production/Tools/TProdProducts/Index">Productos</a>
                         <a class="nav-link" asp-page="/Production/Tools/TProdSuppliers/Index">Proveedores</a>
                     </nav>
                 </div>
-             }
+            }
 
         </div>
     </div>

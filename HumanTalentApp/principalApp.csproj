@@ -38,6 +38,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Production\Purchases\Create.cshtml" />
+    <None Include="Pages\Production\Purchases\Edit.cshtml" />
+    <None Include="Pages\Production\Purchases\Index.cshtml" />
+    <None Include="Pages\Production\Sales\Create.cshtml" />
+    <None Include="Pages\Production\Sales\Edit.cshtml" />
+    <None Include="Pages\Production\Sales\Index.cshtml" />
     <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
     <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
     <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />

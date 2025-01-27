@@ -4,7 +4,6 @@ using EntityModelsPrincipalApp.Models.App;
 using HumanTalentApp.Data;
 using System;
 using System.Drawing.Drawing2D;
-using EntityModelsPrincipalApp.Models.Import;
 
 namespace principalApp.Pages.Production.Tools.TProdSuppliers
 {

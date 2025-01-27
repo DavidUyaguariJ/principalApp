@@ -1,40 +1,56 @@
 ﻿@page
-@model HumanTalentApp.Pages.Audits.Tools.GovermentObjetives.CreateModel
+@model HumanTalentApp.Pages.Production.Sales.CreateModel
 @{
-    ViewData["Title"] = "Crear Objetivos de Gobierno";
+    ViewData["Title"] = "Crear Venta";
     Layout = "_FormsLayout";
 }
-<form class="row gy-2 gx-3 align-items-center" id="brandCreateForm">
+
+<form class="row gy-2 gx-3 align-items-center" id="purchaseCreateForm">
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
             <div class="card-body">
-                <label>Detalles</label>
+                <label>Detalles de la Compra</label>
             </div>
+
+            <!-- Selector de Producto -->
             <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="name" required />
-                    <label>Nombre</label>
+                    <select id="ProductSelect" name="ProductSelect" class="form-control" required>
+                        <option value="">Seleccione un Producto</option>
+                        @foreach (var product in Model.TProdProducts)
+                        {
+                            <option value="@product.IdeProduct">@product.Name</option>
+                        }
+                    </select>
+                    <label for="ProductSelect">Producto</label>
                 </div>
             </div>
+
+            <!-- Selector de Proveedor -->
             <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Code" name="Code" class="form-control" placeholder="code" required />
-                    <label>Código</label>
+                    <select id="SupplierSelect" name="SupplierSelect" class="form-control" required>
+                        <option value="">Seleccione un Cliente</option>
+                        @foreach (var client in Model.TProdClients)
+                        {
+                            <option value="@client.IdeClient">@client.Name</option>
+                        }
+                    </select>
+                    <label for="SupplierSelect">Cliente</label>
                 </div>
             </div>
+
+            <!-- Cantidad -->
             <div class="col-md-6 col-sm-12">
-                <div class="form-check mb-3">
-                    <input id="Principal" name="Principal" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Principal</label>
-                </div>
-                <div class="form-check mb-3">
-                    <input id="Status" name="Status" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Status</label>
+                <div class="form-floating mb-3">
+                    <input id="Quantity" name="Quantity" class="form-control" type="number" placeholder="Cantidad" required />
+                    <label for="Quantity">Cantidad</label>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="card-body text-center">
         <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
         <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
@@ -42,28 +58,25 @@
 </form>
 
 <script>
-    window.onload=function () {
+    window.onload = function () {
         let save = document.getElementById('save');
         save.addEventListener('click', saveData);
     };
+
     function saveData(e) {
-        const checkbox1 = document.getElementById('Principal');
-        const checkbox2 = document.getElementById('Status');
+        const productSelect = document.getElementById('ProductSelect');
+        const supplierSelect = document.getElementById('SupplierSelect');
+        const quantity = document.getElementById('Quantity').value;
 
-        checkbox1.addEventListener('change', function () {
-            hiddenInputCode.value = this.checked;
-        });
-
-        fetch("@Url.Action("RegObjetive", "GouvernmentObjetives")", {
+        fetch("@Url.Action("AddSale", "ProdSales")", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                Name: document.getElementById('Name').value,
-                Code: document.getElementById('Code').value,
-                IsPrincipal: checkbox1.checked,
-                Status: checkbox2.checked
+                IdeProduct: productSelect.value,
+                IdeClient: supplierSelect.value,
+                Quantity: quantity
             }),
         })
             .then(response => {
@@ -73,10 +86,10 @@
                 return response.json();
             })
             .then(data => {
-                if (data && data.message) {
+                if (data) {
                     Swal.fire({
                         title: 'Mensaje',
-                        text: data.message,
+                        text: "Registro Exitoso",
                         icon: 'success',
                         iconColor: '#198754',
                         confirmButtonColor: '#198754',
@@ -93,7 +106,7 @@
                 console.error('Error:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Error al crear registro',
+                    text: 'Error al crear la compra',
                     icon: 'error',
                     iconColor: '#dc3545',
                     confirmButtonColor: '#dc3545',

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HumanTalentApp.Pages.Audits.Tools.AlignmentObjetives
+namespace HumanTalentApp.Pages.Production.Sales
 {
     public class IndexModel : PageModel
     {
