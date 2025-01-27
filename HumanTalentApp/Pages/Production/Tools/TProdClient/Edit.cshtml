@@ -1,36 +1,33 @@
-﻿@page
-@model principalApp.Pages.Audits.Tools.AlignmentObjetives.CreateModel
+﻿@page "/Production/Tools/TProdClient/Edit/{Id:Guid}"
+@model principalApp.Pages.Production.Tools.TProdClient.EditModel
 @{
-    ViewData["Title"] = "Crear Objetivos de Alineamiento";
+    ViewData["Title"] = "Editar Cliente de Producción";
     Layout = "_FormsLayout";
 }
-<form class="row gy-2 gx-3 align-items-center" id="brandCreateForm">
+<form class="row gy-2 gx-3 align-items-center" id="clientEditForm" method="post">
+    @Html.HiddenFor(model => model.Client.IdeClient)
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
             <div class="card-body">
                 <label>Detalles</label>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-8 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="name" required />
+                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del cliente" value="@Model.Client.Nombre" />
                     <label>Nombre</label>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-8 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Code" name="Code" class="form-control" placeholder="code" required />
-                    <label>Código</label>
+                    <input id="ChatId" name="ChatId" class="form-control" placeholder="ID de Chat" value="@Model.Client.ChatId" />
+                    <label>ID de Chat</label>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-check mb-3">
-                    <input id="Principal" name="Principal" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Principal</label>
-                </div>
-                <div class="form-check mb-3">
-                    <input id="Status" name="Status" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Status</label>
+                    <input id="Status" name="Status" class="form-check-input" type="checkbox" @(Model.Client.Status ? "checked" : "") />
+                    <label class="form-check-label">Activo</label>
                 </div>
             </div>
         </div>
@@ -42,28 +39,23 @@
 </form>
 
 <script>
-    window.onload=function () {
+    window.onload = function () {
         let save = document.getElementById('save');
         save.addEventListener('click', saveData);
     };
+
     function saveData(e) {
-        const checkbox1 = document.getElementById('Principal');
-        const checkbox2 = document.getElementById('Status');
+        e.preventDefault();
 
-        checkbox1.addEventListener('change', function () {
-            hiddenInputCode.value = this.checked;
-        });
-
-        fetch("@Url.Action("RegObjetive", "AlignmentObjetives")", {
-            method: 'POST',
+        fetch("@Url.Action("UpdateClient", "TProdClient", new { id = Model.Client.IdeClient })", {
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                Name: document.getElementById('Name').value,
-                Code: document.getElementById('Code').value,
-                IsPrincipal: checkbox1.checked,
-                Status: checkbox2.checked
+                Nombre: document.getElementById('Name').value,
+                ChatId: document.getElementById('ChatId').value,
+                Status: document.getElementById('Status').checked
             }),
         })
             .then(response => {
@@ -83,7 +75,6 @@
                         confirmButtonText: 'Aceptar',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            localStorage.setItem('actionRealiced', 'true');
                             history.back();
                         }
                     });
@@ -93,7 +84,7 @@
                 console.error('Error:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Error al crear registro',
+                    text: 'Error al actualizar registro',
                     icon: 'error',
                     iconColor: '#dc3545',
                     confirmButtonColor: '#dc3545',

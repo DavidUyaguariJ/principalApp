@@ -3,7 +3,7 @@ using EntityModelsHumanTalentApp.Models.App;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HumanTalentApp.Pages.Audits.Tools.AlignmentObjetives
+namespace principalApp.Pages.Audits.Tools.AlignmentObjetives
 {
     public class EditModel : PageModel
     {

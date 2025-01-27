@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\nicol\\source\\repos\\principalApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\production\\tools\\tprodclient\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\production\\tools\\tprodclient\\edit.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\audits\\tools\\alignmentobjetives\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|c:\\users\\nicol\\source\\repos\\principalapp\\humantalentapp\\pages\\production\\tools\\tprodclient\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{02638F15-0338-4B93-87E4-7243EB8EEAF9}|HumanTalentApp\\principalApp.csproj|solutionrelative:humantalentapp\\pages\\production\\tools\\tprodclient\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,15 +58,61 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Audits\\Tools\\AlignmentObjetives\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T05:34:34.29Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml.cs",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml.cs",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml.cs",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T05:22:28.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml",
+              "RelativeDocumentMoniker": "HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\nicol\\source\\repos\\principalApp\\HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml",
+              "RelativeToolTip": "HumanTalentApp\\Pages\\Production\\Tools\\TProdClient\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-26T05:18:27.94Z"
             }
           ]
         }

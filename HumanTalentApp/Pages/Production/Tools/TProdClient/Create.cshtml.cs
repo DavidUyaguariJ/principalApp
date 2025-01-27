@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace principalApp.Pages.Audits.Tools.AlignmentObjetives
+namespace principalApp.Pages.Production.Tools.TProdClient
 {
     public class CreateModel : PageModel
     {

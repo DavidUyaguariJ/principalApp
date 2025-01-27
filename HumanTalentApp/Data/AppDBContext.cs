@@ -1,4 +1,5 @@
 ﻿using EntityModelsHumanTalentApp.Models.App;
+using EntityModelsPrincipalApp.Models.App;
 using Microsoft.EntityFrameworkCore;
 
 namespace HumanTalentApp.Data
@@ -22,6 +23,11 @@ namespace HumanTalentApp.Data
         public virtual DbSet<TAudtEmpresarialObjetive> TAudtEmpresarialObjetives { get; set; }
 
         public virtual DbSet<TAudtGovermentObjetive> TAudtGovermentObjetives { get; set; }
+        public virtual DbSet<TProdClient> TProdClients { get; set; }
+
+        public virtual DbSet<TProdProduct> TProdProducts { get; set; }
+
+        public virtual DbSet<TProdSupplier> TProdSuppliers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DataBase");
@@ -55,6 +61,26 @@ namespace HumanTalentApp.Data
             modelBuilder.Entity<TAudtGovermentObjetive>(entity =>
             {
                 entity.Property(e => e.IdeGuvermentObjetive).HasDefaultValueSql("(newid())");
+            });
+            modelBuilder.Entity<TProdClient>(entity =>
+            {
+                entity.HasKey(e => e.IdeClient).HasName("PK__T_PROD_C__CEA8C3C2EDE70CE8");
+
+                entity.Property(e => e.IdeClient).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TProdProduct>(entity =>
+            {
+                entity.HasKey(e => e.IdeProduct).HasName("PK__T_PROD_P__9D664B37B54EE095");
+
+                entity.Property(e => e.IdeProduct).HasDefaultValueSql("(newid())");
+            });
+
+            modelBuilder.Entity<TProdSupplier>(entity =>
+            {
+                entity.HasKey(e => e.IdeSupplier).HasName("PK__T_PROD_S__07AD67C1FE5956AE");
+
+                entity.Property(e => e.IdeSupplier).HasDefaultValueSql("(newid())");
             });
             OnModelCreatingPartial(modelBuilder);
         }

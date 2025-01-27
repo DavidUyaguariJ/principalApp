@@ -1,10 +1,10 @@
 ﻿@page
-@model principalApp.Pages.Audits.Tools.AlignmentObjetives.CreateModel
+@model principalApp.Pages.Production.Tools.TProdClient.CreateModel
 @{
-    ViewData["Title"] = "Crear Objetivos de Alineamiento";
+    ViewData["Title"] = "Crear Cliente de Producción";
     Layout = "_FormsLayout";
 }
-<form class="row gy-2 gx-3 align-items-center" id="brandCreateForm">
+<form class="row gy-2 gx-3 align-items-center" id="clientCreateForm">
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
@@ -13,24 +13,20 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="name" required />
+                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del cliente" required />
                     <label>Nombre</label>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Code" name="Code" class="form-control" placeholder="code" required />
+                    <input id="Code" name="Code" class="form-control" placeholder="Código del cliente" required />
                     <label>Código</label>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-check mb-3">
-                    <input id="Principal" name="Principal" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Principal</label>
-                </div>
-                <div class="form-check mb-3">
                     <input id="Status" name="Status" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label">Status</label>
+                    <label class="form-check-label">Activo</label>
                 </div>
             </div>
         </div>
@@ -42,19 +38,13 @@
 </form>
 
 <script>
-    window.onload=function () {
+    window.onload = function () {
         let save = document.getElementById('save');
         save.addEventListener('click', saveData);
     };
+
     function saveData(e) {
-        const checkbox1 = document.getElementById('Principal');
-        const checkbox2 = document.getElementById('Status');
-
-        checkbox1.addEventListener('change', function () {
-            hiddenInputCode.value = this.checked;
-        });
-
-        fetch("@Url.Action("RegObjetive", "AlignmentObjetives")", {
+        fetch("@Url.Action("CreateClient", "TProdClient")", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -62,8 +52,7 @@
             body: JSON.stringify({
                 Name: document.getElementById('Name').value,
                 Code: document.getElementById('Code').value,
-                IsPrincipal: checkbox1.checked,
-                Status: checkbox2.checked
+                Status: document.getElementById('Status').checked
             }),
         })
             .then(response => {
