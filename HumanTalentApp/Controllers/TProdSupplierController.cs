@@ -1,63 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using EntityModelsPrincipalApp.Models.App;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using EntityModelsPrincipalApp.Models.App;
-using EntityModelsPrincipalApp.Models.Context;
+using HumanTalentApp.Data;
 using System;
 using System.Linq;
+using EntityModelsPrincipalApp.Models.Import;
+using System.Configuration;
 
 namespace principalApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "ADMN")]
     public class TProdSupplierController : ControllerBase
     {
+        public IConfiguration _configuration;
         private readonly AppDbContext _context;
 
-        public TProdSupplierController(AppDbContext context)
+        public TProdSupplierController(AppDbContext context, IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = context;
+        }
+
+        [HttpGet]
+        public IActionResult GetSupplierById(Guid id)
+        {
+            var result = _context.TProdSuppliers.Where(x => x.IdeSupplier == id);
+            return Ok(result);
         }
 
         [HttpGet]
         public IActionResult GetAllSuppliers()
         {
-            try
-            {
-                var suppliers = _context.TProdSuppliers.ToList();
-                return Ok(new
-                {
-                    Message = "Proveedores obtenidos con éxito.",
-                    Data = suppliers
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetSupplierById(Guid id)
-        {
-            try
-            {
-                var supplier = _context.TProdSuppliers.FirstOrDefault(s => s.IdeSupplier == id);
-                if (supplier == null)
-                {
-                    return NotFound(new { Message = $"Proveedor con ID {id} no encontrado." });
-                }
-
-                return Ok(new
-                {
-                    Message = "Proveedor encontrado con éxito.",
-                    Data = supplier
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
+            var result = _context.TProdSuppliers.ToList();
+            return Ok(result);
         }
 
         [HttpPost]
@@ -65,85 +43,90 @@ namespace principalApp.Controllers
         {
             try
             {
-                if (supplier == null || string.IsNullOrEmpty(supplier.Nombre))
-                {
-                    return BadRequest(new { Message = "El proveedor no es válido o el nombre está vacío." });
-                }
-
-                supplier.IdeSupplier = Guid.NewGuid(); 
+                var data = supplier ?? throw new Exception("The value is null");
                 _context.TProdSuppliers.Add(supplier);
                 _context.SaveChanges();
-
-                return CreatedAtAction(nameof(GetSupplierById), new { id = supplier.IdeSupplier }, new
+                return StatusCode(200, new
                 {
-                    Message = "Proveedor creado con éxito.",
+                    Message = "Registro creado",
                     Data = supplier
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateSupplier(Guid id, [FromBody] TProdSupplier supplier)
-        {
-            try
-            {
-                if (supplier == null || string.IsNullOrEmpty(supplier.Nombre))
+                return StatusCode(400, new
                 {
-                    return BadRequest(new { Message = "El proveedor no es válido o el nombre está vacío." });
-                }
-
-                var existingSupplier = _context.TProdSuppliers.FirstOrDefault(s => s.IdeSupplier == id);
-                if (existingSupplier == null)
-                {
-                    return NotFound(new { Message = $"Proveedor con ID {id} no encontrado." });
-                }
-
-                existingSupplier.Nombre = supplier.Nombre;
-                existingSupplier.Status = supplier.Status;
-                existingSupplier.ChatId = supplier.ChatId;
-
-                _context.TProdSuppliers.Update(existingSupplier);
-                _context.SaveChanges();
-
-                return Ok(new
-                {
-                    Message = "Proveedor actualizado con éxito.",
-                    Data = existingSupplier
+                    error = e.Message
                 });
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteSupplier(Guid id)
+        [HttpPut]
+        public IActionResult UpdateSupplier([FromBody] TProdSupplier supplier)
         {
             try
             {
-                var supplier = _context.TProdSuppliers.FirstOrDefault(s => s.IdeSupplier == id);
-                if (supplier == null)
+                var data = supplier ?? throw new Exception("The value is null");
+
+                var branddevice = _context.TProdSuppliers.Where(x => x.IdeSupplier == supplier.IdeSupplier).FirstOrDefault();
+                if (branddevice == null)
                 {
-                    return NotFound(new { Message = $"Proveedor con ID {id} no encontrado." });
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
                 }
-
-                _context.TProdSuppliers.Remove(supplier);
+                branddevice.Name = supplier.Name;
+                branddevice.Status = supplier.Status;
+                branddevice.ChatId = supplier.ChatId;
+                _context.TProdSuppliers.Update(branddevice);
                 _context.SaveChanges();
-
-                return Ok(new
+                return StatusCode(200, new
                 {
-                    Message = "Proveedor eliminado con éxito.",
+                    Message = "Registro actualizado",
                     Data = supplier
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
+            }
+        }
+
+        [HttpDelete("{BrandId?}")]
+        public IActionResult DeleteSupplier(Guid BrandId)
+        {
+            try
+            {
+                var branddevice = _context.TProdSuppliers.Where(x => x.IdeSupplier == BrandId).FirstOrDefault();
+                if (branddevice == null)
+                {
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
+                }
+                _context.TProdSuppliers.Remove(branddevice);
+                _context.SaveChanges();
+                return StatusCode(200, new
+                {
+                    Message = "Registro eliminado",
+                    Data = branddevice
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
             }
         }
     }

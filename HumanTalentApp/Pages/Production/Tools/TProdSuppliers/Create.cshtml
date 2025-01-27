@@ -1,26 +1,21 @@
 ﻿@page
-@model principalApp.Pages.Production.Tools.TProdClient.CreateModel
+@model principalApp.Pages.Production.Tools.TProdSuppliers.CreateModel
 @{
-    ViewData["Title"] = "Crear Cliente de Producción";
+    ViewData["Title"] = "Crear un Proveedor";
     Layout = "_FormsLayout";
 }
-<form class="row gy-2 gx-3 align-items-center" id="clientCreateForm">
+
+<form class="row gy-2 gx-3 align-items-center" id="supplierCreateForm">
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
             <div class="card-body">
-                <label>Detalles</label>
+                <label>Detalles del Proveedor</label>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del cliente" required />
+                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del proveedor" required />
                     <label>Nombre</label>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="form-floating mb-3">
-                    <input id="Code" name="Code" class="form-control" placeholder="Código del cliente" required />
-                    <label>Código</label>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -32,7 +27,7 @@
         </div>
     </div>
     <div class="card-body text-center">
-        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
+        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3" type="button"><i class="fas fa-save"></i>&thinsp;Guardar</a>
         <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
     </div>
 </form>
@@ -44,15 +39,15 @@
     };
 
     function saveData(e) {
-        fetch("@Url.Action("CreateClient", "TProdClient")", {
+        const checkbox1 = document.getElementById('Status');
+        fetch("@Url.Action("CreateSupplier", "TProdSupplier")", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 Name: document.getElementById('Name').value,
-                Code: document.getElementById('Code').value,
-                Status: document.getElementById('Status').checked
+                Status: checkbox1.checked
             }),
         })
             .then(response => {

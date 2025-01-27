@@ -5,7 +5,7 @@ using HumanTalentApp.Data;
 using System;
 using System.Drawing.Drawing2D;
 
-namespace principalApp.Pages.Production.Tools.TProdClient
+namespace principalApp.Pages.Production.Tools.TProdClients
 {
     public class EditModel : PageModel
     {
@@ -28,4 +28,3 @@ namespace principalApp.Pages.Production.Tools.TProdClient
         }
     }
 }
-

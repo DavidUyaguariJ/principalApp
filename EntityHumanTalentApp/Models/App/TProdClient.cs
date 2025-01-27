@@ -13,10 +13,10 @@ public partial class TProdClient
     [Column("IDE_CLIENT")]
     public Guid IdeClient { get; set; }
 
-    [Column("NOMBRE")]
+    [Column("NAME")]
     [StringLength(255)]
     [Unicode(false)]
-    public string Nombre { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
     [Column("STATUS")]
     public bool? Status { get; set; }

@@ -1,13 +1,12 @@
 ﻿@page
-@model principalApp.Pages.Production.Tools.TProdClient.IndexModel
+@model principalApp.Pages.Production.Tools.TProdSuppliers.IndexModel
 @{
-    ViewData["Title"] = "Clientes de Producción";
+    ViewData["Title"] = "Proveedores";
     Layout = "_TablesLayout";
 }
 
 <script>
     var actionRealiced = localStorage.getItem('actionRealiced');
-
     if (actionRealiced === 'true') {
         localStorage.removeItem('actionRealiced');
         location.reload();
@@ -19,9 +18,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Código</th>
                 <th>Status</th>
-                <th>Acciones</th>
             </tr>
         </thead>
         <tfoot>
@@ -33,39 +30,37 @@
 
 <script>
     window.onload = function () {
-        fetch("@Url.Action("GetAllClients", "TProdClient")")
+        fetch("@Url.Action("GetAllSuppliers", "TProdSupplier")")
             .then(response => response.json())
             .then(data => {
                 const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-                if (data.Data.length === 0) {
+                if (data.length === 0) {
                     const row = tbody.insertRow();
                     row.innerHTML = `
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    `;
-                } else {
-                    data.Data.forEach(client => {
-                        const row = tbody.insertRow();
-                        row.dataset.IdeClient = client.IdeClient;
-                        var statusText = client.Status ? "Activo" : "Inactivo";
-                        row.innerHTML = `
-                            <td>${client.Nombre}</td>
-                            <td>${client.IdeClient}</td>
-                            <td>${statusText}</td>
-                            <td>
-                                <a id="edit" name="edit" class="btn btn-primary" href="/Production/Tools/TProdClient/Edit/${client.IdeClient}">
-                                    <i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span>
-                                </a>
-                                <a name="delete" class="btn btn-danger" data-client-id="${client.IdeClient}" onclick="removeItem(this)">
-                                    <i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span>
-                                </a>
-                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
                         `;
+                } else {
+                    data.forEach(tProdSupplier => {
+                        const name = tProdSupplier.name || "Sin nombre";
+                        const ideSupplier = tProdSupplier.ideSupplier || "-";
+                        const statusText = tProdSupplier.status ? "Activo" : "Inactivo";
+                        const row = tbody.insertRow();
+                        row.dataset.ideSupplier = ideSupplier;
+
+                        row.innerHTML = `
+                                <td>${name}</td>
+                                <td>${statusText}</td>
+                                <td>
+                                    <a id="edit" name="edit" class="btn btn-primary" href="/Production/Tools/TProdSuppliers/Edit/${ideSupplier}"><i class="fas fa-edit"></i><span class="d-none d-md-inline">&thinsp;Editar</span></a>
+                                    <a name="delete" class="btn btn-danger" data-supplier-id="${ideSupplier}" onclick="removeItem(this)"><i class="fas fa-trash"></i><span class="d-none d-md-inline">&thinsp;Eliminar</span></a>
+                                </td>
+                            `;
                     });
                 }
-            });
+            })
     }
 </script>
 
@@ -83,8 +78,8 @@
             cancelButtonColor: '#198754',
         }).then((result) => {
             if (result.isConfirmed) {
-                let clientId = e.dataset.clientId;
-                let url = "@Url.Action("DeleteClient", "TProdClient")" + `/${clientId}`;
+                let supplierId = e.dataset.supplierId;
+                let url = "@Url.Action("DeleteSupplier", "TProdSupplier")" + `/${supplierId}`;
                 fetch(url, {
                     method: 'DELETE'
                 })
@@ -95,18 +90,17 @@
                         return response.json();
                     })
                     .then(data => {
-                        if (data && data.message) {
-                            let row = e.closest('tr');
-                            row.remove();
-                            Swal.fire({
-                                title: 'Mensaje',
-                                text: data.message,
-                                icon: 'success',
-                                iconColor: '#198754',
-                                confirmButtonColor: '#198754',
-                                confirmButtonText: 'Aceptar',
-                            })
-                        }
+                        let message = data?.message || "Registro eliminado correctamente";
+                        let row = e.closest('tr');
+                        row.remove();
+                        Swal.fire({
+                            title: 'Mensaje',
+                            text: message,
+                            icon: 'success',
+                            iconColor: '#198754',
+                            confirmButtonColor: '#198754',
+                            confirmButtonText: 'Aceptar',
+                        });
                     })
                     .catch(error => {
                         console.error('Error:', error);

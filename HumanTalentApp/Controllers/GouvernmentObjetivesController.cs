@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HumanTalentApp.Controllers
+namespace principalApp.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

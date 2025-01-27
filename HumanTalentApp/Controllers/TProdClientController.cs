@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using EntityModelsPrincipalApp.Models.App;
-using EntityModelsPrincipalApp.Models.Context;
+using HumanTalentApp.Data;
 using System;
 using System.Linq;
 
 namespace principalApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "ADMN")]
     public class TProdClientController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        public IConfiguration _configuration;
         private readonly AppDbContext _context;
 
         public TProdClientController(AppDbContext context, IConfiguration configuration)
@@ -22,44 +23,17 @@ namespace principalApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllClients()
-        {
-            try
-            {
-                var clients = _context.TProdClients.ToList();
-                return Ok(new
-                {
-                    Message = "Clientes obtenidos con éxito.",
-                    Data = clients
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpGet("{id}")]
         public IActionResult GetClientById(Guid id)
         {
-            try
-            {
-                var client = _context.TProdClients.FirstOrDefault(c => c.IdeClient == id);
-                if (client == null)
-                {
-                    return NotFound(new { Message = $"Cliente con ID {id} no encontrado." });
-                }
+            var result = _context.TProdClients.Where(x => x.IdeClient == id);
+            return Ok(result);
+        }
 
-                return Ok(new
-                {
-                    Message = "Cliente encontrado con éxito.",
-                    Data = client
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
+        [HttpGet]
+        public IActionResult GetAllClients()
+        {
+            var result = _context.TProdClients.ToList();
+            return Ok(result);
         }
 
         [HttpPost]
@@ -67,84 +41,90 @@ namespace principalApp.Controllers
         {
             try
             {
-                if (client == null || string.IsNullOrEmpty(client.Nombre))
-                {
-                    return BadRequest(new { Message = "El cliente no es válido o el nombre está vacío." });
-                }
-
-                client.IdeClient = Guid.NewGuid(); 
+                var data = client ?? throw new Exception("The value is null");
                 _context.TProdClients.Add(client);
                 _context.SaveChanges();
-
-                return CreatedAtAction(nameof(GetClientById), new { id = client.IdeClient }, new
+                return StatusCode(200, new
                 {
-                    Message = "Cliente creado con éxito.",
+                    Message = "Registro creado",
                     Data = client
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
-            }
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateClient(Guid id, [FromBody] TProdClient client)
-        {
-            try
-            {
-                if (client == null || string.IsNullOrEmpty(client.Nombre))
+                return StatusCode(400, new
                 {
-                    return BadRequest(new { Message = "El cliente no es válido o el nombre está vacío." });
-                }
-
-                var existingClient = _context.TProdClients.FirstOrDefault(c => c.IdeClient == id);
-                if (existingClient == null)
-                {
-                    return NotFound(new { Message = $"Cliente con ID {id} no encontrado." });
-                }
-                existingClient.Nombre = client.Nombre;
-                existingClient.Status = client.Status;
-                existingClient.ChatId = client.ChatId;
-
-                _context.TProdClients.Update(existingClient);
-                _context.SaveChanges();
-
-                return Ok(new
-                {
-                    Message = "Cliente actualizado con éxito.",
-                    Data = existingClient
+                    error = e.Message
                 });
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Error = ex.Message });
-            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteClient(Guid id)
+        [HttpPut]
+        public IActionResult UpdateClient([FromBody] TProdClient client)
         {
             try
             {
-                var client = _context.TProdClients.FirstOrDefault(c => c.IdeClient == id);
-                if (client == null)
+                var data = client ?? throw new Exception("The value is null");
+
+                var branddevice = _context.TProdClients.Where(x => x.IdeClient == client.IdeClient).FirstOrDefault();
+                if (branddevice == null)
                 {
-                    return NotFound(new { Message = $"Cliente con ID {id} no encontrado." });
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
                 }
-
-                _context.TProdClients.Remove(client);
+                branddevice.Name = client.Name;
+                branddevice.Status = client.Status;
+                branddevice.ChatId = client.ChatId;
+                _context.TProdClients.Update(branddevice);
                 _context.SaveChanges();
-
-                return Ok(new
+                return StatusCode(200, new
                 {
-                    Message = "Cliente eliminado con éxito.",
+                    Message = "Registro actualizado",
                     Data = client
                 });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return StatusCode(500, new { Error = ex.Message });
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
+            }
+        }
+
+        [HttpDelete("{BrandId?}")]
+        public IActionResult DeleteClient(Guid BrandId)
+        {
+            try
+            {
+                var branddevice = _context.TProdClients.Where(x => x.IdeClient == BrandId).FirstOrDefault();
+                if (branddevice == null)
+                {
+                    return StatusCode(400, new
+                    {
+                        success = false,
+                        message = "Registro no existe",
+                        result = ""
+                    });
+                }
+                _context.TProdClients.Remove(branddevice);
+                _context.SaveChanges();
+                return StatusCode(200, new
+                {
+                    Message = "Registro eliminado",
+                    Data = branddevice
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(400, new
+                {
+                    error = e.Message
+                });
             }
         }
     }

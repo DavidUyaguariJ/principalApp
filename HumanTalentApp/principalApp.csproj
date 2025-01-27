@@ -34,8 +34,6 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Areas\Identity\Views\Users\" />
-    <Folder Include="Pages\Production\Tools\TProdProduct\" />
-    <Folder Include="Pages\Production\Tools\TProdSupplier\" />
     <Folder Include="wwwroot\Public\Pictures\" />
   </ItemGroup>
 
@@ -57,6 +55,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\Production\Tools\TProdSuppliers\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="Pages\Shared\_ValidationScriptsPartial.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

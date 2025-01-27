@@ -1,43 +1,33 @@
-﻿@page "/Audits/Tools/AlignmentObjetives/Edit/{Id:Guid}"
-@model principalApp.Pages.Audits.Tools.AlignmentObjetives.EditModel
+﻿@page
+@model principalApp.Pages.Production.Tools.TProdProducts.CreateModel
 @{
-    ViewData["Title"] = "Editar Objetivos de Alineamiento";
+    ViewData["Title"] = "Crear un Producto";
     Layout = "_FormsLayout";
 }
-<form class="row gy-2 gx-3 align-items-center" id="orderRepair" method="post">
-    @Html.HiddenFor(model => model.Brand.IdeAlignmentObjetive)
+
+<form class="row gy-2 gx-3 align-items-center" id="productCreateForm">
     <div class="text-danger"></div>
     <div class="card mb-4">
         <div class="row justify-content-center">
             <div class="card-body">
-                <label>Detalles</label>
+                <label>Detalles del Producto</label>
             </div>
-            <div class="col-md-8 col-sm-12">
+            <div class="col-md-6 col-sm-12">
                 <div class="form-floating mb-3">
-                    <input id="Name" name="Name" class="form-control" placeholder="name" value="@Model.Brand.Name" />
-                    <label>Name</label>
-                </div>
-            </div>
-            <div class="col-md-8 col-sm-12">
-                <div class="form-floating mb-3">
-                    <input id="Code" name="Code" class="form-control" placeholder="code" value="@Model.Brand.Code" />
-                    <label>Code</label>
+                    <input id="Name" name="Name" class="form-control" placeholder="Nombre del producto" required />
+                    <label>Nombre</label>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-check mb-3">
-                    <input id="Principal" name="Principal" class="form-check-input" type="checkbox"  value="@Model.Brand.IsPrincipal" />
-                    <label class="form-check-label">Principal</label>
-                </div>
-                <div class="form-check mb-3">
-                    <input id="Status" name="Status" class="form-check-input" type="checkbox"  value="@Model.Brand.Status" />
-                    <label class="form-check-label">Status</label>
+                    <input id="Status" name="Status" class="form-check-input" type="checkbox" />
+                    <label class="form-check-label">Activo</label>
                 </div>
             </div>
         </div>
     </div>
     <div class="card-body text-center">
-        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3"><i class="fas fa-save"></i>&thinsp;Guardar</a>
+        <a id="save" name="save" class="btn btn-success col-md-3 col-sm-3 mb-3" type="button"><i class="fas fa-save"></i>&thinsp;Guardar</a>
         <a id="cancel" name="cancel" class="btn btn-danger col-md-3 col-sm-3 mb-3" href="javascript:history.back()"><i class="fas fa-xmark"></i>&thinsp;Cancelar</a>
     </div>
 </form>
@@ -47,20 +37,17 @@
         let save = document.getElementById('save');
         save.addEventListener('click', saveData);
     };
+
     function saveData(e) {
-        const checkbox1 = document.getElementById('Principal');
-        const checkbox2 = document.getElementById('Status');
-        fetch("@Url.Action("UpdateObjetive", "AlignmentObjetives")", {
-            method: 'PUT',
+        const checkbox1 = document.getElementById('Status');
+        fetch("@Url.Action("CreateProduct", "TProdProduct")", {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                IdeAlignmentObjetive: document.getElementById('Brand_IdeAlignmentObjetive').value,
                 Name: document.getElementById('Name').value,
-                Code: document.getElementById('Code').value,
-                IsPrincipal: checkbox1.checked,
-                Status: checkbox2.checked
+                Status: checkbox1.checked
             }),
         })
             .then(response => {
@@ -80,6 +67,7 @@
                         confirmButtonText: 'Aceptar',
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            localStorage.setItem('actionRealiced', 'true');
                             history.back();
                         }
                     });
@@ -89,7 +77,7 @@
                 console.error('Error:', error);
                 Swal.fire({
                     title: 'Error',
-                    text: 'Error al actualizar registro',
+                    text: 'Error al crear registro',
                     icon: 'error',
                     iconColor: '#dc3545',
                     confirmButtonColor: '#dc3545',
